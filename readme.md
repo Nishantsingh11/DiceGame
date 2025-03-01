@@ -46,8 +46,8 @@ This project simulates a crypto wallet using a fixed dummy wallet address and st
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/Nishantsingh11/DiceGame.git
+   cd backend
    ```
 
 2. **Install Dependencies:**
@@ -66,6 +66,7 @@ This project simulates a crypto wallet using a fixed dummy wallet address and st
 1. **Navigate to the Frontend Folder** (if separated) or remain in the project root.
 2. **Install Dependencies:**
    ```bash
+   cd frontend
    npm install
    ```
 

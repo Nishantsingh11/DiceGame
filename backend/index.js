@@ -80,7 +80,13 @@ app.post("/roll-dice", async (req, res) => {
   // Fetch the player's on-chain wallet balance using Web3.js or simulate it for our dummy wallet
   let walletBalance;
   try {
-    walletBalance = await getWalletBalance(walletAddress);
+    if (walletAddress === '0x1234567890abcdef1234567890abcdef12345678') {
+      walletBalance = playerBalance.toString();
+    } else {
+
+
+      walletBalance = await getWalletBalance(walletAddress);
+    }
   } catch (error) {
     console.error('Error fetching wallet balance:', error);
     return res.status(500).json({ error: 'Error fetching wallet balance' });

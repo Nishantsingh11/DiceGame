@@ -53,7 +53,7 @@ function App() {
 
     try {
       // Call the backend to simulate a dice roll
-      const response = await axios.post('http://localhost:3000/roll-dice', {
+      const response = await axios.post('https://dicegame-upis.onrender.com/roll-dice', {
         betAmount,
         walletAddress,
       });

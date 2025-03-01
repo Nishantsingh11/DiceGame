@@ -91,7 +91,7 @@ function App() {
   };
 
   const resetGame = async () => {
-    await axios.post('https://dicegame-upis.onrender.com/reset-game')
+    await axios.post('https://dicegame-upis.onrender.com/reset-balance')
       .then(response => {
         const data = response.data;
         console.log("Server response:", data);

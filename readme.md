@@ -1,3 +1,4 @@
+
 # 🎲 Dice Game - Provably Fair
 
 ## Overview
@@ -13,8 +14,8 @@ This project simulates a crypto wallet using a fixed dummy wallet address and st
 
 ## Live Demo
 
-- **Frontend:** [Dicegamewithweb3](https://dicegamewithweb3.netlify.app/)
-- **Backend:** [Dicegame-upis](https://dicegame-upis.onrender.com)
+- **Frontend:** [https://dicegamewithweb3.netlify.app/](https://dicegamewithweb3.netlify.app/)
+- **Backend:** [https://dicegame-upis.onrender.com](https://dicegame-upis.onrender.com)
 
 ---
 
@@ -34,7 +35,12 @@ This project simulates a crypto wallet using a fixed dummy wallet address and st
   - Uses **SHA-256 hashing** for a provably fair dice roll.
   - Simulates checking the wallet balance (using a fixed dummy wallet).
   - Updates the simulated off-chain player balance.
-  - Returns game results along with fixed game statistics.
+  - Returns game results.
+- **POST `/reset-balance` API Endpoint:**
+  - Resets the simulated off-chain player balance to 1000.
+  - Returns the new balance along with a confirmation message.
+- **Rate Limiting:**  
+  Uses `express-rate-limit` to restrict each IP to a maximum of 100 requests per 15 minutes on the `/roll-dice` and `/reset-balance` endpoints.
 
 ### Game Statistics (Hard-Coded)
 - **Win Chance:** 50%
@@ -81,7 +87,7 @@ This project simulates a crypto wallet using a fixed dummy wallet address and st
    ```bash
    npm start
    ```
-   > The frontend will typically run on a different port (e.g., `http://localhost:5173`).
+   > The frontend typically runs on a different port (e.g., `http://localhost:5173`).
 
 ---
 
@@ -93,7 +99,8 @@ This project simulates a crypto wallet using a fixed dummy wallet address and st
 3. Enter any bet amount (minimum: **1**; e.g., `1, 10, 20, 100`).
 4. Click **"Roll Dice"** to simulate a dice roll.
 5. The game will display the roll result, update your balance, and record the game history.
-6. Game statistics are fixed at:  
+6. To reset your balance to 1000 (restart the game), use the **Reset Balance** feature.
+7. Game statistics are fixed at:  
    - **Win Chance:** 50%
    - **Roll Over:** 3.50
    - **Multiplier:** 2.00
@@ -123,24 +130,41 @@ Simulates a dice roll using a provably fair algorithm.
   "winnings": 20,
   "playerBalance": 1020,
   "walletBalance": "1000",
-  "betAmount": 10,
-  "winChance": 50,
-  "rollOver": 3.5,
-  "multiplier": 2
+  "betAmount": 10
 }
 ```
 
-| Field           | Description                                          |
-| --------------- | ---------------------------------------------------- |
-| **roll**        | Dice roll result (number between 1 and 6)            |
-| **result**      | "Win" or "Lose"                                      |
-| **winnings**    | Payout (if win); 0 if loss                           |
-| **playerBalance** | Updated simulated off-chain balance               |
-| **walletBalance** | Dummy on-chain wallet balance (pre-bet)           |
-| **betAmount**   | Bet amount provided by the player                    |
-| **winChance**   | Hard-coded win chance (50%)                          |
-| **rollOver**    | Hard-coded roll over value (3.50)                    |
-| **multiplier**  | Hard-coded multiplier (2)                            |
+| Field             | Description                                        |
+| ----------------- | -------------------------------------------------- |
+| **roll**          | Dice roll result (number between 1 and 6)          |
+| **result**        | "Win" or "Lose"                                    |
+| **winnings**      | Payout (if win); 0 if loss                         |
+| **playerBalance** | Updated simulated off-chain balance                |
+| **walletBalance** | Dummy on-chain wallet balance (pre-bet)            |
+| **betAmount**     | Bet amount provided by the player                  |
+
+---
+
+### POST `/reset-balance`
+
+**Description:**  
+Resets the simulated off-chain player balance to 1000.
+
+**Request Body:**  
+_None required_
+
+**Response:**
+```json
+{
+  "playerBalance": 1000,
+  "message": "Player balance has been reset to 1000."
+}
+```
+
+| Field             | Description                                |
+| ----------------- | ------------------------------------------ |
+| **playerBalance** | The reset off-chain balance (1000)         |
+| **message**       | Confirmation message of the reset action   |
 
 ---
 
@@ -159,6 +183,7 @@ Simulates a dice roll using a provably fair algorithm.
 - **crypto** (for SHA-256 hashing)
 - **body-parser**
 - **cors**
+- **express-rate-limit**
 
 ---
 
@@ -172,3 +197,6 @@ This project is provided for educational and demonstration purposes. Modify and 
 
 For questions or feedback, please contact:  
 **Your Name** – [ns114046@gmail.com]
+
+---
+

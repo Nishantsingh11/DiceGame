@@ -3,9 +3,21 @@ import crypto from 'crypto';
 import bodyParser from 'body-parser';
 import Web3 from 'web3';
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+
 
 const app = express();
 const port = 3000;
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Too many requests, please try again later."
+});
+
+
+app.use('/roll-dice', apiLimiter);
+app.use('/reset-balance', apiLimiter);
 
 // Enable CORS so that your frontend (running on another port) can access the backend
 app.use(cors());
@@ -37,6 +49,8 @@ function generateFairRoll(seed) {
   console.log("roll", roll);
   return roll;
 }
+
+
 
 /**
  * Retrieves the balance of a given Ethereum wallet address.
@@ -129,6 +143,13 @@ app.post("/roll-dice", async (req, res) => {
     betAmount,      // The bet amount provided by the player
   });
 });
+app.post("/reset-balance", (req, res) => {
+  playerBalance = 1000;
+  res.json({
+    playerBalance,
+    message: "Player balance has been reset to 1000."
+  });
+})
 
 // Start the Express server on the specified port.
 app.listen(port, () => {

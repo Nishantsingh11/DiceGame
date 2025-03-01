@@ -9,7 +9,6 @@ import web3 from '../config/web3.js';
 export function generateFairRoll(seed) {
   const hash = crypto.createHash('sha256').update(seed).digest('hex');
   const roll = parseInt(hash.slice(0, 8), 16) % 6 + 1;
-  console.log("roll", roll);
   return roll;
 }
 

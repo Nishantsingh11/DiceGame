@@ -11,6 +11,13 @@ This project simulates a crypto wallet using a fixed dummy wallet address and st
 
 ---
 
+## Live Demo
+
+- **Frontend:** [Dicegamewithweb3](https://dicegamewithweb3.netlify.app/)
+- **Backend:** [Dicegame-upis](https://dicegame-upis.onrender.com)
+
+---
+
 ## Features
 
 ### Frontend (React)

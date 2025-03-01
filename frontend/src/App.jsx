@@ -54,12 +54,13 @@ function App() {
 
     try {
       const response = await axios.post("https://dicegame-upis.onrender.com/roll-dice", {
+      // const response = await axios.post("http://localhost:3000/roll-dice", {
+
         betAmount: numericBet,
         walletAddress,
       });
 
       const data = response.data;
-      console.log("Server response:", data);
 
       const { roll, result, winnings, playerBalance } = data;
       setDiceValue(roll);
@@ -79,9 +80,10 @@ function App() {
 
   const resetGame = async () => {
     await axios.post("https://dicegame-upis.onrender.com/reset-balance")
+    // await axios.post("http://localhost:3000/reset-balance")
+
       .then(response => {
         const data = response.data;
-        console.log("Server response:", data);
         setBalance(data.playerBalance);
         setDiceValue(null);
         setGameHistory([]);
